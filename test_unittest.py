@@ -47,10 +47,12 @@ class TestDemo(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    #unitest.main() 执行所有测试用例（test_开头的）
+    #f方法一：unitest.main() 执行所有测试用例（test_开头的）
     # unittest.main()
 
-    #创建一个测试套件，testsuite,只执行添加的一条用例、或几条。
+    #方法二：创建一个《测试套件》，testsuite,只执行添加的一条用例、或几条。
     suite = unittest.TestSuite()
     suite.addTest(TestDemo("test_abc"))      #addTest(类名("用例名"))
     unittest.TextTestRunner().run(suite)    #然后运行测试套件
+
+    #测试三：执行某个测试类
