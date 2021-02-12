@@ -10,8 +10,17 @@ import pytest
 def inc(x):
     return x + 1
 
-def test_answer():
-    assert inc(3) == 5
+#pytest的参数化
+@pytest.mark.parametrize('a,b',[
+    (1,2),
+    (10,20),
+    ('a','a1'),
+    (3,4),
+    (5,6)
+])
+
+def test_answer(a,b):
+    assert inc(a) == b
 
 def test_answer1():
     assert inc(4) == 5
