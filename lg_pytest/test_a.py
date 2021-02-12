@@ -25,13 +25,19 @@ def test_answer(a,b):
 def test_answer1():
     assert inc(4) == 5
 
+#pytest.fixture() 装饰过的函数，类似unittest中的一个setup，在执行用例之间会先执行login函数
+@pytest.fixture()
+def login():
+    username = "Jerry"
+    return username
+
 class TestDemo:
-    def test_a(self):
-        print("a")
+    def test_a(self, login):  #方法中传入login，会先执行login函数
+        print(f"a username = {login}")  #这个方法的名字就代表着方法return的值
     def test_b(self):
         print('b')
-    def c(self):
-        print('c')
+    def test_c(self, login):  #方法中传入login，会先执行login函数
+        print(r'c username = {login}')  #这个方法的名字就代表着方法return的值
 #作为入口函数，python 文件名运行
 if __name__ == '__main__':
     # pytest.main(['test_a.py']) #pytest.main() 运行文件中所有已“test_”的用例
