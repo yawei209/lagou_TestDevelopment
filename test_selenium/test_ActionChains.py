@@ -19,7 +19,7 @@ class TestActionChains():
 
     def teardown(self):
         self.driver.quit()
-
+    @pytest.mark.skip
     def test_case_click(self):
         self.driver.get("http://sahitest.com/demo/clicks.htm")
         #定义元素变量
@@ -37,6 +37,29 @@ class TestActionChains():
         actions.double_click(element_doubleclick)
 
         sleep(1)
+        actions.perform()
+        sleep(1)
+
+    def test_dragdrop(self):
+        self.driver.get("http://sahitest.com/demo/dragDropMooTools.htm")
+        # 一定注意，action方法中是需要的找到的元素，而不是直接的一个xpath地址
+        element_drag = self.driver.find_element_by_xpath('//div[@id="dragger"]')
+        element_drop1 = self.driver.find_element_by_xpath("/html/body/div[2]")
+        element_drop2 = self.driver.find_element_by_xpath("/html/body/div[3]")
+        element_drop3 = self.driver.find_element_by_xpath("/html/body/div[4]")
+        element_drop4 = self.driver.find_element_by_xpath("/html/body/div[5]")
+
+        #写法一：链式写法
+        # ActionChains(self.driver).click_and_hold(element_drag).release(element_drop1).perform()
+
+        #写法二：分布写法
+        actions = ActionChains(self.driver)
+
+        #方法一：action.drap_and_drop()
+        # actions.drag_and_drop(element_drag, element_drop1)
+
+        #方法二：action.click_and_hold(target).release(target)  两个方法可以链式写在一个ActionChains对象之后
+        actions.click_and_hold(element_drag).release(element_drop1)
         actions.perform()
         sleep(1)
 
