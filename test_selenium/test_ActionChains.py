@@ -8,6 +8,7 @@ import pytest
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 
 class TestActionChains():
@@ -39,7 +40,7 @@ class TestActionChains():
         sleep(1)
         actions.perform()
         sleep(1)
-
+    @pytest.mark.skip
     def test_dragdrop(self):
         self.driver.get("http://sahitest.com/demo/dragDropMooTools.htm")
         # 一定注意，action方法中是需要的找到的元素，而不是直接的一个xpath地址
@@ -61,6 +62,34 @@ class TestActionChains():
         #方法二：action.click_and_hold(target).release(target)  两个方法可以链式写在一个ActionChains对象之后
         actions.click_and_hold(element_drag).release(element_drop1)
         actions.perform()
+        sleep(1)
+
+
+    def test_keys1(self):
+        self.driver.get("http://sahitest.com/demo/label.htm")
+        element = self.driver.find_element_by_xpath('/html/body/label[1]/input')    #输入框元素
+        chains = ActionChains(self.driver)
+        chains.click(element)   #光标先在输入框元素点击
+        chains.send_keys("username").pause(1)   #输入”username“，并等待1秒
+        chains.send_keys(Keys.SPACE).pause(1)   #输入空格键，并等待1秒
+        chains.send_keys("tom").pause(1)        #输入”tom“，并等待1秒
+        chains.send_keys(Keys.BACKSPACE).perform()  #输入删除键，并等待1秒
+        sleep(2)
+
+    def test_keys2(self):
+        #ctrl+a：action.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL)
+        #ctrl+c：action.key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL)
+        self.driver.get("http://sahitest.com/demo/label.htm")
+        element_input1 = self.driver.find_element_by_xpath('/html/body/label[1]/input')
+        element_input2 = self.driver.find_element_by_xpath('/html/body/label[2]/table/tbody/tr/td[2]/input')
+        chains = ActionChains(self.driver)
+        chains.click(element_input1)
+        chains.send_keys("username tom").pause(1)
+        chains.key_down(Keys.CONTROL).send_keys('a').key_up(Keys.CONTROL).pause(1)
+        chains.key_down(Keys.CONTROL).send_keys('c').key_up(Keys.CONTROL).pause(1)
+        chains.click(element_input2).pause(1)
+        chains.key_down(Keys.CONTROL).send_keys('v').key_up(Keys.CONTROL).pause(1)
+        chains.perform()
         sleep(1)
 
 if __name__ == '__main__':
