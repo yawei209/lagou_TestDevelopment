@@ -26,3 +26,13 @@ class TestJS(Base):
         #打印当前页面的title、和性能数据。并return出来。注意return一定是和js命令是一起的。
         for code in ['return document.title', 'return JSON.stringify(performance.timing)']:
             print(self.driver.execute_script(code))
+
+    def test_datetime(self):
+        self.driver.get("https://www.12306.cn/index/")
+        #在driver.execute_script('js命令1;js命令2')，两条命令可写在一个方法里，js命令1的变量 js命令2可以直接用。
+        self.driver.execute_script('time=document.getElementById("train_date");time.removeAttribute("readonly")')
+        #重新找到时间元素，修改value值。
+        self.driver.execute_script('document.getElementById("train_date").value="2021-3-4"')
+        sleep(2)
+        #打印出需改的值
+        print(self.driver.execute_script('return document.getElementById("train_date").value'))
