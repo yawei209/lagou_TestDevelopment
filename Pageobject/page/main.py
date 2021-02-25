@@ -18,5 +18,5 @@ class Main(BasePage):
         return Register(self._driver)
 
     def goto_login(self):
-        self.find(By.CSS_SELECTOR, "index_head_info_pCDownloadBtn").click()
+        self.find(By.CSS_SELECTOR, ".index_top_operation_loginBtn").click()
         return Login(self._driver)

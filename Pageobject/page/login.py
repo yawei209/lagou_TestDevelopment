@@ -14,5 +14,5 @@ class Login(BasePage):
     def scan(self):
         pass
     def goto_register(self):
-        self.find(By.CSS_SELECTOR, "login_registerBar_link").click()
+        self.find(By.CSS_SELECTOR, ".login_registerBar_link").click()
         return Register(self._driver)
