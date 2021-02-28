@@ -27,3 +27,5 @@ class TestDemo():
         result = element.get_attribute('class')     #判断这个元素的class是否等于'active'
         assert 'active' == result
 
+
+
