@@ -19,5 +19,6 @@ class IndexPage:
         self.driver.get("https://work.weixin.qq.com/wework_admin/frame#index")
 
     def click_add_member(self):
+        sleep(2)
         self.driver.find_element(By.CSS_SELECTOR, '.index_service_cnt_itemWrap:nth-child(1)').click()
-        return AddMemberPage(self.driver)
+        return AddMemberPage(self.driver)   #return是模块和模块之间的转换

@@ -11,10 +11,9 @@ from Pageobject_实战课程.page.index_page import IndexPage
 
 class TestContact:
     def setup(self):
-        self.index = IndexPage()
+        self.index = IndexPage()    #记得添加(),完成实例化
 
     def test_addcontact(self):
         # self.index.click_add_member().add_member()
-        sleep(2)
         result = self.index.click_add_member().add_member()
         assert result
